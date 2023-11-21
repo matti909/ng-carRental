@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
+import { startWith } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -8,7 +9,7 @@ import { ShoppingCartService } from '../../services/shopping-cart.service';
 })
 export class CartComponent {
   quantity$ = this.shoppingCartSvc.quantityActions$;
-  total$ = this.shoppingCartSvc.totalActions$;
+  total$ = this.shoppingCartSvc.totalActions$.pipe(startWith(0));
   cart$ = this.shoppingCartSvc.cartActions$;
 
   constructor(private shoppingCartSvc: ShoppingCartService) {}

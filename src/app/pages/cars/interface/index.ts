@@ -1,11 +1,13 @@
-export interface Cars {
-  _id: string;
-  brand: string;
-  make: string;
-  year: number;
-  price: number;
-  km: number;
+export interface Car {
+
+  id?: number;
+  brand?: string;
+  make?: string;
+  year?: number;
+  picture?: string;
+  km?: number;
+  price?: number;
   cm3?: number;
-  picture?: string | null | undefined;
-  owner?: null;
+  owner?: string;
+  
 }

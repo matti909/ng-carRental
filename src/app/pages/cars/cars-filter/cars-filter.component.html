@@ -1,0 +1,21 @@
+<div class="rp-filters">
+	<form [formGroup]="recipeForm">
+			<fieldset class="rp-filters-group">
+					<legend>Filters</legend>
+				
+					
+					<div class="cont">
+						<mat-label>Brands</mat-label>
+						<mat-select id="brand" formControlName="brand">
+							<mat-option value="audi">Audi</mat-option>
+							<mat-option value="fiat">Fiat</mat-option>
+							<mat-option value="toyota">Toyota</mat-option>
+						</mat-select>
+					</div>
+					<div class="rp-filter-button">
+						<button mat-raised-button color="primary" (click)="filterResults()">See results</button>
+				</div>
+				
+			</fieldset>
+	</form>
+</div>

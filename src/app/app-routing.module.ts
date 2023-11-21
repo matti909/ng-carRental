@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/checkout/checkout.module').then(m => m.CheckoutModule),
   },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  { path: '**', redirectTo: 'cars', pathMatch: 'full' },
 ];
 
 @NgModule({

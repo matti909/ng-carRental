@@ -8,6 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { MaterialModule } from './material.module';
 import { CartComponent } from './shared/components/cart/cart.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import {DataViewModule} from 'primeng/dataview';
+import {ButtonModule} from 'primeng/button';
+import {PanelModule} from 'primeng/panel';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, CartComponent],
@@ -17,6 +21,10 @@ import { CartComponent } from './shared/components/cart/cart.component';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    DataViewModule,
+    ButtonModule,
+    PanelModule
   ],
   providers: [],
   bootstrap: [AppComponent],

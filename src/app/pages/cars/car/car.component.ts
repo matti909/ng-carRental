@@ -5,7 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Cars } from '../interface';
+import { Car } from '../interface';
 
 @Component({
   selector: 'app-car',
@@ -14,9 +14,9 @@ import { Cars } from '../interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CarComponent {
-  @Input() car!: Cars;
+  @Input() car!: Car;
 
-  @Output() addToCar = new EventEmitter<Cars>();
+  @Output() addToCar = new EventEmitter<Car>();
 
   onClick(): void {
     this.addToCar.emit(this.car);
