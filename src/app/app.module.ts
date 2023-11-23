@@ -12,9 +12,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {DataViewModule} from 'primeng/dataview';
 import {ButtonModule} from 'primeng/button';
 import {PanelModule} from 'primeng/panel';
+import { CarsModule } from './pages/cars/cars.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, CartComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,7 +26,9 @@ import {PanelModule} from 'primeng/panel';
     ReactiveFormsModule,
     DataViewModule,
     ButtonModule,
-    PanelModule
+    PanelModule,
+    CarsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent],

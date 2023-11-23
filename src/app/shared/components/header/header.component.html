@@ -1,31 +1,33 @@
 <mat-toolbar color="primary">
-  
+
 
   <span class="navbar-brand fs-2 fw-bold">
     <mat-icon class="fs-2" color="warn">shopping_cart</mat-icon>
     <app-cart />
   </span>
 
+  <button mat-icon-button (click)="opened=!opened">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <button mat-icon-button>
+    <mat-icon>
+      home
+    </mat-icon>
+  </button>
+
   <span class="spacer"></span>
 
   <mat-nav-list class="nav" fxLayout="row" fxHide.lt-md>
-    <mat-list-item class="me-1">
-      <a mat-button [matMenuTriggerFor]="homeMenu">Home</a>
-      <mat-menu #homeMenu="matMenu">
-        <a mat-menu-item>Option</a>
-        <a mat-menu-item>Option</a>
-        <a mat-menu-item>Option</a>
-      </mat-menu>
+    <mat-list-item>
+      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+        <mat-icon>favorite</mat-icon>
+      </button>
     </mat-list-item>
-    <mat-list-item class="me-1">
-      <a mat-button [matMenuTriggerFor]="pagesMenu">Pages</a>
-      <mat-menu #pagesMenu="matMenu">
-        <a mat-menu-item>Option</a>
-        <a mat-menu-item>Option</a>
-        <a mat-menu-item>Option</a>
-      </mat-menu>
+    <mat-list-item>
+      <a mat-button>Products</a>
+
     </mat-list-item>
-    <mat-list-item class="me-1">
+    <mat-list-item>
       <a mat-button [matMenuTriggerFor]="productMenu">Product</a>
       <mat-menu #productMenu="matMenu">
         <a mat-menu-item>Option</a>
@@ -33,16 +35,17 @@
         <a mat-menu-item>Option</a>
       </mat-menu>
     </mat-list-item>
-    <mat-list-item>
-      <a mat-button [matMenuTriggerFor]="blogMenu">Blog</a>
-      <mat-menu #blogMenu="matMenu">
-        <a mat-menu-item>Option</a>
-        <a mat-menu-item>Option</a>
-      </mat-menu>
-    </mat-list-item>
   </mat-nav-list>
-
-  <button mat-icon-button >
-    <mat-icon>menu</mat-icon>
-  </button>
 </mat-toolbar>
+
+<mat-sidenav-container>
+
+  <mat-sidenav [(opened)]="opened" mode="side">
+    <a>start</a>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

@@ -6,12 +6,12 @@ import { CarsService } from '../../services/cars.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';  
+import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
 
 @Component({
   selector: 'app-cars-list',
   templateUrl: './cars-list.component.html',
-  styleUrls: ['./cars-list.component.scss']
+  styleUrls: ['./cars-list.component.scss'],
 })
 export class CarsListComponent implements OnInit, AfterViewInit {
   cars$!: Observable<Car[]>;
@@ -29,11 +29,11 @@ export class CarsListComponent implements OnInit, AfterViewInit {
     // Combina la lógica de filtrado con la inicialización de la fuente de datos
     this.cars$ = combineLatest([this.service.cars$, this.filterRecipesAction$]).pipe(
       map(([cars, filter]: [Car[], Car]) => {
-        const filteredCars = cars.filter(car => car.brand?.toLowerCase().indexOf(filter?.brand?.toLowerCase() ?? '') != -1);
+        const filteredCars = cars.filter(car => car.brand?.toLowerCase().indexOf(filter?.brand?.toLowerCase() ??  '') != -1);
         this.dataSource.data = filteredCars;
         return filteredCars;
       }),
-      startWith([]) // Inicializa con una matriz vacía para evitar problemas al renderizar antes de que se obtengan los datos
+      startWith([])
     );
   }
 

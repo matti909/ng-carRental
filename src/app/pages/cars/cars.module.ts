@@ -16,6 +16,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [CarsFilterComponent, CarsListComponent, HomeComponent],
-    imports: [CommonModule, CarsRoutingModule, MaterialModule, ReactiveFormsModule, DataViewModule, ButtonModule, PanelModule, TableModule, MatProgressSpinnerModule]
+    imports: [CommonModule, CarsRoutingModule, MaterialModule, ReactiveFormsModule, DataViewModule, ButtonModule, PanelModule, TableModule, MatProgressSpinnerModule],
+    exports: [CarsFilterComponent, CarsListComponent]
 })
 export class CarsModule { }

@@ -19,6 +19,10 @@ export class CarsService {
     this.filterCarSubject.next(criteria);
   }
 
+  saveRecipe(formValue: Car): Observable<Car> {
+    return this.http.post<Car>(this.apiUrl, formValue);
+  }
+
   getCars(): Observable<Car[]> {
     return this.http.get<Car[]>(this.apiUrl);
   }

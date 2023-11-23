@@ -6,6 +6,8 @@
 
 table {
   width: 100%;
+  padding-left: 80px;
+  padding-right: 80px;
 }
 
 .mat-mdc-form-field {
@@ -14,5 +16,21 @@ table {
 }
 
 td, th {
-  width: 25%;
+  width: 25%; 
+  padding: 10px;
+}
+
+a,
+button {
+  margin: 2px;
+  padding: 1px;
+}
+ 
+button {
+  border-style: groove;
+  border-color: red;
+
+  &:hover{
+    background-color: rgb(250, 28, 28);
+  }
 }
