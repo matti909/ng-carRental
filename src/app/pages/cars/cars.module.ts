@@ -9,7 +9,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
-import { CarsListComponent } from './cars-list/cars-list/cars-list.component';
+import { CarsListComponent } from './cars-list/cars-list.component';
 import { HomeComponent } from './home/home.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 

@@ -12,11 +12,7 @@ import { Car } from '../interface';
 export class CarsFilterComponent implements OnInit {
 
   recipeForm = this.fb.group({
-    brand: [''],
-    make: [''],
-    cm3: [''],
-    year: [''],
-    owner: ['']
+    brand: ['']
   });
 
   constructor(private service: CarsService, private fb: FormBuilder) { }

@@ -5,13 +5,17 @@
 	padding-bottom: 10px;
 }
 
-mat-select {
-	display: flex;
-	background-color: burlywood;
-	padding: 10px;
-	border-radius: 5px;
-}
-
 .cont{
 	max-width: 120px;
+}
+
+form{
+	display: flex;
+	justify-content: center;
+}
+
+button {
+	padding: 25px;
+	margin: 5px;
+	bottom: 10px;
 }

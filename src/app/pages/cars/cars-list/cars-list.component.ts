@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { Car } from '../../interface';
-import { CarsService } from '../../services/cars.service';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Observable, combineLatest } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
+import { Car } from '../interface';
+import { CarsService } from '../services/cars.service';
 
 @Component({
   selector: 'app-cars-list',
@@ -26,7 +26,6 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   constructor(private service: CarsService, private shoppingCartSvc: ShoppingCartService) { }
 
   ngOnInit(): void {
-    // Combina la lógica de filtrado con la inicialización de la fuente de datos
     this.cars$ = combineLatest([this.service.cars$, this.filterRecipesAction$]).pipe(
       map(([cars, filter]: [Car[], Car]) => {
         const filteredCars = cars.filter(car => car.brand?.toLowerCase().indexOf(filter?.brand?.toLowerCase() ??  '') != -1);
