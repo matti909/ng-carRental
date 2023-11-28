@@ -1,14 +1,15 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { AuthState, User } from '../../users/interfaces';
 import { Car } from '../interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarsService {
-  private apiUrl = 'http://localhost:8000/cars';
 
+  private apiUrl = 'http://localhost:8000/cars';
   cars$ = this.http.get<Car[]>(this.apiUrl);
   private filterCarSubject = new BehaviorSubject<Car>({ brand: '' });
   filterCarsAction$ = this.filterCarSubject.asObservable();
@@ -19,12 +20,19 @@ export class CarsService {
     this.filterCarSubject.next(criteria);
   }
 
-  saveRecipe(formValue: Car): Observable<Car> {
-    return this.http.post<Car>(this.apiUrl, formValue);
+  saveCar(formData: FormData): Observable<Car> {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      return this.http.post<Car>(this.apiUrl, formData, { headers });
+    } else {
+      throw new Error('No se encontró el token de autenticación.');
+    }
   }
 
   getCars(): Observable<Car[]> {
     return this.http.get<Car[]>(this.apiUrl);
   }
+
 }
 
