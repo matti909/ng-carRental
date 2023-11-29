@@ -1,22 +1,104 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { LoginResponse } from '../interfaces';
+import { BehaviorSubject, Observable, catchError, map, of } from 'rxjs';
+import { AuthState, LoginResponse, User } from '../interfaces';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  ACCESS_TOKEN: string = 'accessToken';
+  AUTH_USER: string = 'authUser';
+  authState!: Observable<AuthState>;
+  isLoggedInAsync!: Observable<boolean>;
+  private readonly authSubject!: BehaviorSubject<AuthState>;
+
   private apiUrl = 'http://localhost:8000/users';
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    const localToken = this.getLocalToken();
+    let isLoggedIn = false;
+    if (localToken) {
+      isLoggedIn = this.tokenExists() &&
+        !this.tokenExpired(localToken);
+    }
+    this.authSubject = new BehaviorSubject<AuthState>({
+      isLoggedIn: isLoggedIn,
+      currentUser: this.getLocalUser(),
+      accessToken: localToken
+    });
+    this.authState = this.authSubject.asObservable();
+    this.isLoggedInAsync = this.authState.pipe(map(state => state.isLoggedIn));
+  }
 
-  login(
-    email: string,
-    password: string): Observable<LoginResponse | null | undefined> {
+  get isLoggedIn(): boolean {
+    return this.authSubject.getValue().isLoggedIn;
+  }
+  get authUser(): User | null {
+    return this.authSubject.getValue().currentUser;
+  }
+
+  getLocalToken(): string | null {
+    return localStorage.getItem(this.ACCESS_TOKEN)
+  }
+
+  storeUser(user: User): void {
+    localStorage.setItem(this.AUTH_USER,
+      JSON.stringify(user));
+  }
+
+  private getLocalUser(): User | null {
+    return JSON.parse(localStorage.getItem(this.AUTH_USER) as
+      string) ?? null;
+  }
+
+  private storeToken(token: string): void {
+    localStorage.setItem(this.ACCESS_TOKEN, token);
+  }
+
+  private tokenExists(): boolean {
+    return !!localStorage.getItem(this.ACCESS_TOKEN);
+  }
+
+  private tokenExpired(token: string): boolean {
+    const tokenObj = JSON.parse(atob(token.split('.')[1]));
+    return Date.now() > (tokenObj.exp * 1000);
+  }
+
+  private updateAuthState(token: string, user: User) {
+    this.storeToken(token);
+    this.storeUser(user);
+    this.authSubject.next({
+      isLoggedIn: true,
+      currentUser: user,
+      accessToken: token
+    });
+  }
+
+  private resetAuthState() {
+    this.authSubject.next({
+      isLoggedIn: false,
+      currentUser: null,
+      accessToken: null
+    })
+  }
+
+  login(email: string, password: string): Observable<LoginResponse | null | undefined> {
     const body = { email, password };
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, body);
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, body)
+      .pipe(
+        map((response: LoginResponse) => {
+          const { token, user } = response;
+          this.updateAuthState(token, user);
+          return response;
+        }),
+        catchError(error => {
+          console.error('Error logging in:', error);
+          this.resetAuthState();
+          return of(null);
+        })
+      );
   }
 }

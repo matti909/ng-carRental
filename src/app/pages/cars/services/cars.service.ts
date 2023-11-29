@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { AuthState, User } from '../../users/interfaces';
 import { Car } from '../interface';
 
 @Injectable({

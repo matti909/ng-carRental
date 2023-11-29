@@ -8,22 +8,22 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="fill">
         <mat-label>Brand</mat-label>
-        <input matInput formControlName="brand" />
+        <input matInput formControlName="brand" required/>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Make</mat-label>
-        <input matInput formControlName="make" />
+        <input matInput formControlName="make" required/>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Year</mat-label>
-        <input matInput formControlName="year" />
+        <input matInput formControlName="year" required/>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>KM</mat-label>
-        <input matInput formControlName="km" />
+        <input matInput formControlName="km" required/>
       </mat-form-field>
 
       <mat-form-field appearance="fill">

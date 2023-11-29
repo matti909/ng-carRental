@@ -23,4 +23,10 @@ export interface User {
   role: UserRole;
 }
 
+export interface AuthState {
+  isLoggedIn: boolean;
+  currentUser: User | null;
+  accessToken: string | null;
+};
+
 

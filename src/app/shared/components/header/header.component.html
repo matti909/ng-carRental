@@ -1,47 +1,56 @@
 <mat-toolbar color="primary">
 
 
-  <span class="navbar-brand fs-2 fw-bold">
-    <mat-icon class="fs-2" color="warn">shopping_cart</mat-icon>
-    <app-cart />
-  </span>
+ 
 
   <button mat-icon-button (click)="opened=!opened">
     <mat-icon>menu</mat-icon>
   </button>
-  <button mat-icon-button>
-    <mat-icon>
-      home
-    </mat-icon>
-  </button>
+  
 
   <span class="spacer"></span>
 
-  <mat-nav-list class="nav" fxLayout="row" fxHide.lt-md>
-    <mat-list-item>
-      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>favorite</mat-icon>
-      </button>
-    </mat-list-item>
-    <mat-list-item>
-      <a mat-button>Products</a>
-
-    </mat-list-item>
-    <mat-list-item>
-      <a mat-button [matMenuTriggerFor]="productMenu">Product</a>
-      <mat-menu #productMenu="matMenu">
-        <a mat-menu-item>Option</a>
-        <a mat-menu-item>Option</a>
-        <a mat-menu-item>Option</a>
-      </mat-menu>
-    </mat-list-item>
+  <mat-nav-list class="nav">
+    <span class="navbar-brand fs-2 fw-bold">
+      <mat-icon class="fs-2" color="warn">shopping_cart</mat-icon>
+      <app-cart />
+    </span>
   </mat-nav-list>
 </mat-toolbar>
 
 <mat-sidenav-container>
 
   <mat-sidenav [(opened)]="opened" mode="side">
-    <a>start</a>
+    <mat-list *ngIf="user">
+      <mat-list-item>
+        <mat-icon matListItemIcon>account_circle</mat-icon>
+        <h4 matListItemTitle>{{ user.username }}</h4>
+        <p matListItemLine class="demo-2"> {{ user.email }} </p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+    <mat-nav-list>
+      <div mat-subheader>Admin</div>
+      <a mat-list-item routerLink="/admin/dashboard">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        Dashboard
+      </a>
+      <a mat-list-item routerLink="/admin/products">
+        <mat-icon matListItemIcon>dataset</mat-icon>
+        Products
+      </a>
+      <a mat-list-item routerLink="/admin/categories">
+        <mat-icon matListItemIcon>dns</mat-icon>
+        Categories
+      </a>
+      <mat-divider></mat-divider>
+      <div div mat-subheader>Users</div>
+      <a mat-list-item routerLink="/admin/users">
+        <mat-icon matListItemIcon>group</mat-icon>
+        Users
+      </a>
+      
+    </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>

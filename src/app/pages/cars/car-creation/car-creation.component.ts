@@ -1,12 +1,8 @@
-// car-creation.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { catchError, concatMap, of, tap } from 'rxjs';
 import { CarsService } from '../services/cars.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Car } from '../interface';
-
 @Component({
   selector: 'app-car-creation',
   templateUrl: './car-creation.component.html',
@@ -19,7 +15,7 @@ export class CarCreationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private service: CarsService,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   form = this.formBuilder.group({
     brand: [''],
@@ -40,6 +36,11 @@ export class CarCreationComponent implements OnInit {
     tap((result) => this.saveSuccess(result))
   );
 
+
+  ngOnInit(): void {
+    this.valueChanges$.subscribe();
+  }
+
   saveSuccess(result: any) {
     console.log('Saved successfully');
     this.showSnackBar('Car saved successfully!');
@@ -49,21 +50,20 @@ export class CarCreationComponent implements OnInit {
     this.selectedFile = event.target.files[0] ?? null;
   }
 
- 
-onSubmit(): void {
-  if (this.form.valid) {
-    const formData = this.buildFormData(this.form.value);
-    this.service.saveCar(formData).subscribe(
-      (result) => this.saveSuccess(result),
-      (error) => {
-        console.error('Error saving car:', error);
-        this.showSnackBar('Error saving car. Please try again.');
-      }
-    );
-  } else {
-    this.showSnackBar('Please fill in all required fields.');
+  onSubmit(): void {
+    if (this.form.valid) {
+      const formData = this.buildFormData(this.form.value);
+      this.service.saveCar(formData).subscribe({
+        next: (result) => this.saveSuccess(result),
+        error: (error) => {
+          console.error('Error saving car:', error);
+          this.showSnackBar('Error saving car. Please try again.');
+        },
+      });
+    } else {
+      this.showSnackBar('Please fill in all required fields.');
+    }
   }
-}
 
   private buildFormData(form: any): FormData {
     const formData = new FormData();
@@ -84,5 +84,7 @@ onSubmit(): void {
     });
   }
 
-  ngOnInit(): void {}
+  handleErrors(errors: any) {
+    console.error('Error occurred:', errors);
+  }
 }
