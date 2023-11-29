@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, map, of } from 'rxjs';
-import { AuthState, LoginResponse, User } from '../interfaces';
+import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
+import { AuthState, LoginResponse, SignupResponse, User } from '../interfaces';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class AuthService {
   private apiUrl = 'http://localhost:8000/users';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {
     const localToken = this.getLocalToken();
     let isLoggedIn = false;
@@ -100,5 +102,27 @@ export class AuthService {
           return of(null);
         })
       );
+  }
+
+  register(
+    username: string,
+    email: string,
+    password: string,
+    role: string): Observable<SignupResponse | null | undefined> {
+    const body1 = { username, email, password, role }
+    return this.http.post<SignupResponse>(`${this.apiUrl}/register`, body1)
+      .pipe(
+        map(result => result),
+        tap({
+          next: (result: SignupResponse | null | undefined) => {
+            if ( result?.username) {
+              console.log("success register") 
+            }
+          },
+          error: err => {
+            console.error(err);
+            this.resetAuthState();
+          }
+        }));
   }
 }
