@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
 import { AuthState, LoginResponse, SignupResponse, User } from '../interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
   isLoggedInAsync!: Observable<boolean>;
   private readonly authSubject!: BehaviorSubject<AuthState>;
 
-  private apiUrl = 'http://localhost:8000/users';
+  private apiUrl = environment.apiUrl + '/users';
 
   constructor(
     private http: HttpClient,
