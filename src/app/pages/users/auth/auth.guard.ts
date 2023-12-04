@@ -3,7 +3,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateFn = () => {
   const authService = inject(AuthService) as AuthService;
   const router = inject(Router) as Router;
 
@@ -12,7 +12,8 @@ export const authGuard: CanActivateFn = (route, state) => {
     map((currentUser) => {
       if (currentUser.isLoggedIn) {
         return true
-      } else {
+      }
+      else {
         router.navigateByUrl('/')
         return false
       }

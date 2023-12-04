@@ -3,6 +3,8 @@ import { FormBuilder } from '@angular/forms';
 import { catchError, concatMap, of, tap } from 'rxjs';
 import { CarsService } from '../services/cars.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-car-creation',
   templateUrl: './car-creation.component.html',
@@ -14,7 +16,8 @@ export class CarCreationComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private service: CarsService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) { }
 
   form = this.formBuilder.group({
@@ -86,5 +89,9 @@ export class CarCreationComponent implements OnInit {
 
   handleErrors(errors: any) {
     console.error('Error occurred:', errors);
+  }
+
+  onBackButtonClick() {
+    this.location.back();
   }
 }

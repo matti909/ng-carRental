@@ -33,5 +33,13 @@ export class CarsService {
     return this.http.get<Car[]>(this.apiUrl);
   }
 
+  updateCar(id: number, price: number): Observable<void> {
+    return this.http.patch<void>(`${this.apiUrl}/${id}`, { price });
+  }
+
+  deleteCar(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
 }
 

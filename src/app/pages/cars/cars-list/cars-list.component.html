@@ -5,6 +5,9 @@
 
 <section *ngIf="cars$ | async as cars" class="cars">
   <app-cars-filter></app-cars-filter>
+  <div>
+    <button mat-raised-button color="secondary" (click)="onButtonClick()">Add car!</button>
+  </div>
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="brand">
       <th mat-header-cell *matHeaderCellDef> Brand </th>
@@ -17,7 +20,7 @@
     <ng-container matColumnDef="picture">
       <th mat-header-cell *matHeaderCellDef> Images </th>
       <td mat-cell *matCellDef="let element">
-        <img mat-card-md-image src="{{ element.picture }}" width="40" height="40" alt="Photo of a Car" />
+        <img mat-card-image src="{{ element.picture }}" width="70" height="70" alt="Photo of a Car" />
       </td>
     </ng-container>
     <ng-container matColumnDef="make">
@@ -27,8 +30,11 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let element">
-        <a color="primary" mat-raised-button [routerLink]="[element.id]">Editar</a>
+        <a color="primary" mat-raised-button (click)="onUpdatePrice(car, price.valueAsNumber)"
+          [routerLink]="[element.id]">Editar</a>
       </td>
+      <input placeholder="New price" #price />
+      <button (click)="onUpdatePrice(car, price.valueAsNumber)">Change</button>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
