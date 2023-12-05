@@ -13,6 +13,13 @@
   display: flex;
 }
 
+mat-toolbar {
+  background-color: var(--secondary);
+  color: var(--text-dark);
+  padding: 1rem;
+  max-height: 55px;
+}
+
 mat-toolbar-row {
   justify-content: space-between;
 }
@@ -25,4 +32,3 @@ mat-sidenav {
   width: 250px;
   background-color: #eee;
 }
-

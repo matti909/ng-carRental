@@ -1,6 +1,6 @@
 .cars {
-	display: flex;
-	flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 table {
@@ -9,13 +9,12 @@ table {
   padding-right: 80px;
 }
 
-
 a,
 button {
   margin: 5px;
   padding: 1px;
 }
- 
+
 button {
   position: absolute;
   right: 20px;

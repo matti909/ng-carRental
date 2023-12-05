@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { Car } from 'src/app/pages/cars/interface';
+import {Injectable} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
+import {Car} from 'src/app/pages/cars/interface';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class ShoppingCartService {
   cars: Car[] = [];
 
@@ -14,17 +14,16 @@ export class ShoppingCartService {
     console.log('Cart updated:', this.cars);
     return this.cartSubject.asObservable();
   }
-  
+
   get totalActions$(): Observable<number> {
     console.log('Total updated:', this.totalSubject);
     return this.totalSubject.asObservable();
   }
-  
+
   get quantityActions$(): Observable<number> {
     console.log('Quantity updated:', this.quantitySubject);
     return this.quantitySubject.asObservable();
   }
-  
 
   updateCart(car: Car): void {
     this.addToCart(car);
@@ -46,5 +45,4 @@ export class ShoppingCartService {
     const total = this.cars.reduce((acc, car) => acc + (car.price ?? 0), 0);
     this.totalSubject.next(total);
   }
-  
 }

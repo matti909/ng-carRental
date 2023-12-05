@@ -1,33 +1,31 @@
-
 <div class="boton">
-  <button mat-raised-button color="primary" (click)="onBackButtonClick()">Go Back</button>
+  <button mat-raised-button color="primary" (click)="onBackButtonClick()">
+    Go Back
+  </button>
 </div>
-
-<ng-container *ngIf="valueChanges$ | async"></ng-container>
 
 <mat-card>
   <mat-card-title>Create a New Car</mat-card-title>
   <mat-card-content>
-
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" (ngSubmit)="onSaveCar()">
       <mat-form-field appearance="fill">
         <mat-label>Brand</mat-label>
-        <input matInput formControlName="brand" required/>
+        <input matInput formControlName="brand" required />
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Make</mat-label>
-        <input matInput formControlName="make" required/>
+        <input matInput formControlName="make" required />
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Year</mat-label>
-        <input matInput formControlName="year" required/>
+        <input matInput formControlName="year" required />
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>KM</mat-label>
-        <input matInput formControlName="km" required/>
+        <input matInput formControlName="km" required />
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -40,12 +38,13 @@
         <input matInput formControlName="price" />
       </mat-form-field>
 
-      <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-      <input hidden (change)="onFileSelected($event)" #fileInput type="file">
-      <span class="file-name">{{selectedFile?.name}}</span>
+      <button type="button" mat-raised-button (click)="fileInput.click()">
+        Choose File
+      </button>
+      <input hidden (change)="onFileSelected($event)" #fileInput type="file" />
+      <span class="file-name">{{ selectedFile?.name }}</span>
 
       <button type="submit" mat-raised-button color="primary">Save</button>
-
     </form>
   </mat-card-content>
 </mat-card>

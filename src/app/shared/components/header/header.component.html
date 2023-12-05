@@ -1,6 +1,5 @@
-<mat-toolbar color="primary">
-
-  <button mat-icon-button (click)="opened=!opened">
+<mat-toolbar>
+  <button mat-icon-button (click)="opened = !opened">
     <mat-icon>menu</mat-icon>
   </button>
 
@@ -15,13 +14,12 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-
   <mat-sidenav [(opened)]="opened" mode="side">
     <mat-list *ngIf="user">
       <mat-list-item>
         <mat-icon matListItemIcon>account_circle</mat-icon>
         <h4 matListItemTitle>{{ user.username }}</h4>
-        <p matListItemLine class="demo-2"> {{ user.email }} </p>
+        <p matListItemLine class="demo-2">{{ user.email }}</p>
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
@@ -45,12 +43,10 @@
         <mat-icon matListItemIcon>group</mat-icon>
         Users
       </a>
-      
     </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
-
 </mat-sidenav-container>

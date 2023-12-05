@@ -1,5 +1,4 @@
 export interface Car {
-
   id?: number;
   brand?: string;
   make?: string;
@@ -9,5 +8,4 @@ export interface Car {
   price?: number;
   cm3?: number;
   owner?: string;
-  
 }

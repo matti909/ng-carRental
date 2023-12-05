@@ -1,7 +1,8 @@
-{/* 
+{
+  /* 
   "editor.rulers": [
     115
   ], */
   "editor.wordWrap": "on",
-  "editor.wordWrapColumn": 110,
+  "editor.wordWrapColumn": 110
 }

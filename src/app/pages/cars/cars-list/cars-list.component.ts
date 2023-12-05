@@ -1,13 +1,21 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { Observable, combineLatest } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
-import { Car } from '../interface';
-import { CarsService } from '../services/cars.service';
-import { Router } from '@angular/router';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {Observable, combineLatest} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {ShoppingCartService} from 'src/app/shared/services/shopping-cart.service';
+import {Car} from '../interface';
+import {CarsService} from '../services/cars.service';
+import {Router} from '@angular/router';
+import { DialogServices } from 'src/app/shared/services/dialog.service';
 
 @Component({
   selector: 'app-cars-list',
@@ -19,17 +27,30 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   filterRecipesAction$ = this.service.filterCarsAction$;
   displayedColumns: string[] = ['brand', 'price', 'picture', 'make', 'actions'];
   dataSource: MatTableDataSource<Car> = new MatTableDataSource<Car>();
+  dialogService = inject(DialogServices)
 
   @Input() car: Car | undefined;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private service: CarsService, private shoppingCartSvc: ShoppingCartService, private router: Router) { }
+  constructor(
+    private service: CarsService,
+    private shoppingCartSvc: ShoppingCartService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.cars$ = combineLatest([this.service.cars$, this.filterRecipesAction$]).pipe(
+    this.cars$ = combineLatest([
+      this.service.cars$,
+      this.filterRecipesAction$,
+    ]).pipe(
       map(([cars, filter]: [Car[], Car]) => {
-        const filteredCars = cars.filter(car => car.brand?.toLowerCase().indexOf(filter?.brand?.toLowerCase() ?? '') != -1);
+        const filteredCars = cars.filter(
+          car =>
+            car.brand
+              ?.toLowerCase()
+              .indexOf(filter?.brand?.toLowerCase() ?? '') != -1
+        );
         this.dataSource.data = filteredCars;
         return filteredCars;
       }),
@@ -50,17 +71,16 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   onButtonClick() {
     this.router.navigate(['/cars/create']);
   }
-  
-  onUpdatePrice( car : Car | undefined, price: number) {
+
+  onUpdatePrice(car: Car | undefined, price: number) {
     if (car?.id !== undefined) {
-      this.service.updateCar(car.id, price).subscribe(() => {
+      this.service.updatePriceCar(car.id, price).subscribe(() => {
         alert(`The price of ${car.brand} ${car.make} was changed!`);
       });
     } else {
-      console.error("ID is undefined. Unable to update car.");
+      console.error('ID is undefined. Unable to update car.');
     }
   }
-  
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -69,5 +89,10 @@ export class CarsListComponent implements OnInit, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  openDialog(car: Car) {
+    console.log('Open dialog for car with ID:', car);
+    this.dialogService.dialogSubject$.setSubject(true)
   }
 }

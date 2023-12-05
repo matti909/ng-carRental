@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
-import { AuthState, LoginResponse, SignupResponse, User } from '../interfaces';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable, catchError, map, of, tap} from 'rxjs';
+import {AuthState, LoginResponse, SignupResponse, User} from '../interfaces';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  ACCESS_TOKEN: string = 'accessToken';
-  AUTH_USER: string = 'authUser';
+  ACCESS_TOKEN = 'accessToken';
+  AUTH_USER = 'authUser';
   authState!: Observable<AuthState>;
   isLoggedInAsync!: Observable<boolean>;
   private readonly authSubject!: BehaviorSubject<AuthState>;
@@ -24,13 +24,12 @@ export class AuthService {
     const localToken = this.getLocalToken();
     let isLoggedIn = false;
     if (localToken) {
-      isLoggedIn = this.tokenExists() &&
-        !this.tokenExpired(localToken);
+      isLoggedIn = this.tokenExists() && !this.tokenExpired(localToken);
     }
     this.authSubject = new BehaviorSubject<AuthState>({
       isLoggedIn: isLoggedIn,
       currentUser: this.getLocalUser(),
-      accessToken: localToken
+      accessToken: localToken,
     });
     this.authState = this.authSubject.asObservable();
     this.isLoggedInAsync = this.authState.pipe(map(state => state.isLoggedIn));
@@ -44,17 +43,15 @@ export class AuthService {
   }
 
   getLocalToken(): string | null {
-    return localStorage.getItem(this.ACCESS_TOKEN)
+    return localStorage.getItem(this.ACCESS_TOKEN);
   }
 
   storeUser(user: User): void {
-    localStorage.setItem(this.AUTH_USER,
-      JSON.stringify(user));
+    localStorage.setItem(this.AUTH_USER, JSON.stringify(user));
   }
 
   private getLocalUser(): User | null {
-    return JSON.parse(localStorage.getItem(this.AUTH_USER) as
-      string) ?? null;
+    return JSON.parse(localStorage.getItem(this.AUTH_USER) as string) ?? null;
   }
 
   private storeToken(token: string): void {
@@ -67,7 +64,7 @@ export class AuthService {
 
   private tokenExpired(token: string): boolean {
     const tokenObj = JSON.parse(atob(token.split('.')[1]));
-    return Date.now() > (tokenObj.exp * 1000);
+    return Date.now() > tokenObj.exp * 1000;
   }
 
   private updateAuthState(token: string, user: User) {
@@ -76,7 +73,7 @@ export class AuthService {
     this.authSubject.next({
       isLoggedIn: true,
       currentUser: user,
-      accessToken: token
+      accessToken: token,
     });
   }
 
@@ -84,46 +81,51 @@ export class AuthService {
     this.authSubject.next({
       isLoggedIn: false,
       currentUser: null,
-      accessToken: null
-    })
+      accessToken: null,
+    });
   }
 
-  login(email: string, password: string): Observable<LoginResponse | null | undefined> {
-    const body = { email, password };
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, body)
-      .pipe(
-        map((response: LoginResponse) => {
-          const { token, user } = response;
-          this.updateAuthState(token, user);
-          return response;
-        }),
-        catchError(error => {
-          console.error('Error logging in:', error);
-          this.resetAuthState();
-          return of(null);
-        })
-      );
+  login(
+    email: string,
+    password: string
+  ): Observable<LoginResponse | null | undefined> {
+    const body = {email, password};
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, body).pipe(
+      map((response: LoginResponse) => {
+        const {token, user} = response;
+        this.updateAuthState(token, user);
+        return response;
+      }),
+      catchError(error => {
+        console.error('Error logging in:', error);
+        this.resetAuthState();
+        return of(null);
+      })
+    );
   }
 
   register(
     username: string,
     email: string,
     password: string,
-    role: string): Observable<SignupResponse | null | undefined> {
-    const body1 = { username, email, password, role }
-    return this.http.post<SignupResponse>(`${this.apiUrl}/register`, body1)
+    role: string
+  ): Observable<SignupResponse | null | undefined> {
+    const body1 = {username, email, password, role};
+    return this.http
+      .post<SignupResponse>(`${this.apiUrl}/register`, body1)
       .pipe(
         map(result => result),
         tap({
           next: (result: SignupResponse | null | undefined) => {
-            if ( result?.username) {
-              console.log("success register") 
+            if (result?.username) {
+              console.log('success register');
             }
           },
           error: err => {
             console.error(err);
             this.resetAuthState();
-          }
-        }));
+          },
+        })
+      );
   }
 }

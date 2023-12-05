@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { ShoppingCartService } from '../../services/shopping-cart.service';
-import { startWith } from 'rxjs';
+import {Component} from '@angular/core';
+import {ShoppingCartService} from '../../services/shopping-cart.service';
+import {startWith} from 'rxjs';
 
 @Component({
   selector: 'app-cart',

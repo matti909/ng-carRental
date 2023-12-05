@@ -1,4 +1,3 @@
-
 export enum UserRole {
   ADMIN = 'ADMIN',
   SALESPERSON = 'SALESPERSON',
@@ -27,6 +26,4 @@ export interface AuthState {
   isLoggedIn: boolean;
   currentUser: User | null;
   accessToken: string | null;
-};
-
-
+}

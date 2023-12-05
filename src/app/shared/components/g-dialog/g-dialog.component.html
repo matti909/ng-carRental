@@ -1,0 +1,6 @@
+<div class="dialog-background" [ngClass]="{ open: isOpen }">
+  <dialog [open]="isOpen" class="dialog-container">
+    <ng-content></ng-content>
+    <app-g-button (clickEvent)="closeDialog()">Close</app-g-button>
+  </dialog>
+</div>

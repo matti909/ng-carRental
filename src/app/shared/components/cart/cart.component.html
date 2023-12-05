@@ -1,7 +1,6 @@
 <ng-container
-  *ngIf="{ total: total$ | async, quantity: quantity$ | async } as data">
+  *ngIf="{total: total$ | async, quantity: quantity$ | async} as data">
   <ng-container *ngIf="data.total">
-      
     {{ data.total | currency }}
     ({{ data.quantity }})
   </ng-container>

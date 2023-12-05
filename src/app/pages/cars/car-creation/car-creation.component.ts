@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { catchError, concatMap, of, tap } from 'rxjs';
-import { CarsService } from '../services/cars.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Location } from '@angular/common';
+import { Component, OnInit} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
+import {CarsService} from '../services/cars.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-car-creation',
@@ -18,7 +17,7 @@ export class CarCreationComponent implements OnInit {
     private service: CarsService,
     private snackBar: MatSnackBar,
     private location: Location
-  ) { }
+  ) {}
 
   form = this.formBuilder.group({
     brand: [''],
@@ -27,22 +26,10 @@ export class CarCreationComponent implements OnInit {
     km: [''],
     cm3: [''],
     price: [''],
-    picture: ['']
+    picture: [''],
   });
 
-  valueChanges$ = this.form.valueChanges.pipe(
-    concatMap((form) => this.service.saveCar(this.buildFormData(form))),
-    catchError((errors) => {
-      this.showSnackBar('Error saving car. Please try again.');
-      return of(errors);
-    }),
-    tap((result) => this.saveSuccess(result))
-  );
-
-
-  ngOnInit(): void {
-    this.valueChanges$.subscribe();
-  }
+  ngOnInit(): void {}
 
   saveSuccess(result: any) {
     console.log('Saved successfully');
@@ -53,12 +40,12 @@ export class CarCreationComponent implements OnInit {
     this.selectedFile = event.target.files[0] ?? null;
   }
 
-  onSubmit(): void {
+  onSaveCar(): void {
     if (this.form.valid) {
       const formData = this.buildFormData(this.form.value);
       this.service.saveCar(formData).subscribe({
-        next: (result) => this.saveSuccess(result),
-        error: (error) => {
+        next: result => this.saveSuccess(result),
+        error: error => {
           console.error('Error saving car:', error);
           this.showSnackBar('Error saving car. Please try again.');
         },

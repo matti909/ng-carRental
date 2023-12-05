@@ -1,15 +1,17 @@
 <div class="rp-filters">
-	<form [formGroup]="recipeForm">
-			<mat-form-field>
-				<mat-label>Brands</mat-label>
-				<mat-select id="brand" formControlName="brand" name="brand">
-					<mat-option value="audi">Audi</mat-option>
-					<mat-option value="fiat">Fiat</mat-option>
-					<mat-option value="toyota">Toyota</mat-option>
-				</mat-select>
-			</mat-form-field>
-			<div class="rp-filter-button">
-				<button mat-raised-button color="secondary" (click)="filterResults()">See results</button>
-			</div>
-	</form>
+  <form [formGroup]="recipeForm">
+    <mat-form-field>
+      <mat-label>Brands</mat-label>
+      <mat-select id="brand" formControlName="brand" name="brand">
+        <mat-option value="audi">Audi</mat-option>
+        <mat-option value="fiat">Fiat</mat-option>
+        <mat-option value="toyota">Toyota</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="rp-filter-button">
+      <button mat-raised-button color="secondary" (click)="filterResults()">
+        See results
+      </button>
+    </div>
+  </form>
 </div>
