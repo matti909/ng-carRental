@@ -1,6 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, map} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Car} from '../interface';
 
 @Injectable({

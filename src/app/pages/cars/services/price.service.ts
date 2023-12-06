@@ -1,21 +1,21 @@
-import { Injectable, signal } from '@angular/core';
-import { Car } from '../interface';
+import {Injectable, signal} from '@angular/core';
+import {Car} from '../interface';
 
 export const EmptyPriceState: Car = {
-  price: 0
-}
+  price: 0,
+};
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PriceService {
-  private priceformState = signal(EmptyPriceState)
+  private priceformState = signal(EmptyPriceState);
 
   getPriceFormState() {
     return this.priceformState;
   }
 
   setPriceFormState(car: Car) {
-    this.priceformState.set(car)
+    this.priceformState.set(car);
   }
 }

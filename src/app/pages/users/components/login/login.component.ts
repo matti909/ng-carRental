@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
@@ -11,7 +11,7 @@ import {LoginResponse} from '../../interfaces';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnDestroy {
   form: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -28,8 +28,6 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router
   ) {}
-
-  ngOnInit(): void {}
 
   ngOnDestroy() {
     if (this.loginSubscription) {

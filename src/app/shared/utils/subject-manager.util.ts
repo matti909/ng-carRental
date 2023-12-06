@@ -1,4 +1,4 @@
-import { Subject } from "rxjs";
+import {Subject} from 'rxjs';
 
 export class SubjectManager {
   private $subject = new Subject<boolean>();
@@ -8,6 +8,6 @@ export class SubjectManager {
   }
 
   setSubject(value: boolean) {
-    this.$subject.next(value)
+    this.$subject.next(value);
   }
 }

@@ -15,7 +15,7 @@ import {ShoppingCartService} from 'src/app/shared/services/shopping-cart.service
 import {Car} from '../interface';
 import {CarsService} from '../services/cars.service';
 import {Router} from '@angular/router';
-import { DialogServices } from 'src/app/shared/services/dialog.service';
+import {DialogServices} from 'src/app/shared/services/dialog.service';
 
 @Component({
   selector: 'app-cars-list',
@@ -27,7 +27,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   filterRecipesAction$ = this.service.filterCarsAction$;
   displayedColumns: string[] = ['brand', 'price', 'picture', 'make', 'actions'];
   dataSource: MatTableDataSource<Car> = new MatTableDataSource<Car>();
-  dialogService = inject(DialogServices)
+  dialogService = inject(DialogServices);
 
   @Input() car: Car | undefined;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -93,6 +93,6 @@ export class CarsListComponent implements OnInit, AfterViewInit {
 
   openDialog(car: Car) {
     console.log('Open dialog for car with ID:', car);
-    this.dialogService.dialogSubject$.setSubject(true)
+    this.dialogService.dialogSubject$.setSubject(true);
   }
 }

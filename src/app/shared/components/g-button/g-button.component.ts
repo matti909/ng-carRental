@@ -5,12 +5,10 @@ import {Component, EventEmitter, Output} from '@angular/core';
   templateUrl: './g-button.component.html',
   styleUrls: ['./g-button.component.scss'],
 })
-
 export class GButtonComponent {
-  @Output() clickEvent = new EventEmitter()
+  @Output() clickEvent = new EventEmitter();
 
   clickButton() {
-    this.clickEvent.emit(true)
+    this.clickEvent.emit(true);
   }
 }
-

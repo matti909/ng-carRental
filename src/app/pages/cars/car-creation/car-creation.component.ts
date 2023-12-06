@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {CarsService} from '../services/cars.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -9,7 +9,7 @@ import {Location} from '@angular/common';
   templateUrl: './car-creation.component.html',
   styleUrls: ['./car-creation.component.scss'],
 })
-export class CarCreationComponent implements OnInit {
+export class CarCreationComponent  {
   selectedFile: any = null;
 
   constructor(
@@ -29,7 +29,6 @@ export class CarCreationComponent implements OnInit {
     picture: [''],
   });
 
-  ngOnInit(): void {}
 
   saveSuccess(result: any) {
     console.log('Saved successfully');
