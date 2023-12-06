@@ -1,6 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {Car} from '../interface';
 
 @Injectable({
@@ -32,11 +32,25 @@ export class CarsService {
     return this.http.get<Car[]>(this.apiUrl);
   }
 
-  updatePriceCar(id: number, price: number): Observable<void> {
-    return this.http.patch<void>(`${this.apiUrl}/${id}`, {price});
+  getCar(id: string | number): Observable<Car> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<Car>(url);
   }
+ 
+  updatePriceCar(id: string | number | undefined, changes: Partial<Car>): Observable<Car> {
+    if (id !== undefined) {
+      const url = `${this.apiUrl}/${id}`;
+      return this.http.patch<Car>(url, changes);
+    } else {
+      return throwError('El ID del coche no está definido.');
+    }
+  }
+  
 
   deleteCar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
+    /* updatePriceCar(id: number, data: { price: number | null }): Observable<void> {
+      return this.http.patch<void>(`${this.apiUrl}/${id}`, {price});
+    } */

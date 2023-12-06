@@ -39,7 +39,10 @@
 
       <td mat-cell *matCellDef="let element">
         <app-g-button (clickEvent)="openDialog(element)">Open</app-g-button>
-        <app-g-dialog><app-g-price-form></app-g-price-form></app-g-dialog>
+        <app-g-dialog>
+          <app-g-price-form ></app-g-price-form>
+          
+        </app-g-dialog>
       </td>
     </ng-container>
 

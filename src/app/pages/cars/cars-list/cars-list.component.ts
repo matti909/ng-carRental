@@ -1,7 +1,6 @@
 import {
   AfterViewInit,
   Component,
-  Input,
   OnInit,
   ViewChild,
   inject,
@@ -28,8 +27,8 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['brand', 'price', 'picture', 'make', 'actions'];
   dataSource: MatTableDataSource<Car> = new MatTableDataSource<Car>();
   dialogService = inject(DialogServices);
-
-  @Input() car: Car | undefined;
+  
+  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -72,7 +71,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/cars/create']);
   }
 
-  onUpdatePrice(car: Car | undefined, price: number) {
+  /* onUpdatePrice(car: Car | undefined, price: number) {
     if (car?.id !== undefined) {
       this.service.updatePriceCar(car.id, price).subscribe(() => {
         alert(`The price of ${car.brand} ${car.make} was changed!`);
@@ -80,7 +79,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
     } else {
       console.error('ID is undefined. Unable to update car.');
     }
-  }
+  } */
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -94,5 +93,6 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   openDialog(car: Car) {
     console.log('Open dialog for car with ID:', car);
     this.dialogService.dialogSubject$.setSubject(true);
+    this.dialogService.setSelectedCar(car)
   }
 }

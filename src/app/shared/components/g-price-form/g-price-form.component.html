@@ -1,4 +1,7 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <label for="price">Price</label>
-  <input type="number" formControlName="price" />
+  <input mat-input formControlName="price" />
+  <button type="submit" color="primary" mat-raised-button >
+    Save
+  </button>
 </form>
