@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Subscription} from 'rxjs';
@@ -38,8 +34,6 @@ export class SignupComponent implements OnDestroy {
     private snackBar: MatSnackBar,
     private router: Router
   ) {}
-
-  
 
   ngOnDestroy(): void {
     if (this.registerSubscription) {

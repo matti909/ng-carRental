@@ -36,21 +36,25 @@ export class CarsService {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Car>(url);
   }
- 
-  updatePriceCar(id: string | number | undefined, changes: Partial<Car>): Observable<Car> {
-    if (id !== undefined) {
+
+  updatePriceCar(
+    id: string | number | undefined,
+    changes: Partial<Car>
+  ): Observable<Car> {
+    const token = localStorage.getItem('accessToken');
+    if (id !== undefined && token) {
       const url = `${this.apiUrl}/${id}`;
-      return this.http.patch<Car>(url, changes);
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      return this.http.patch<Car>(url, changes, {headers});
     } else {
       return throwError('El ID del coche no está definido.');
     }
   }
-  
 
   deleteCar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
-    /* updatePriceCar(id: number, data: { price: number | null }): Observable<void> {
+/* updatePriceCar(id: number, data: { price: number | null }): Observable<void> {
       return this.http.patch<void>(`${this.apiUrl}/${id}`, {price});
     } */

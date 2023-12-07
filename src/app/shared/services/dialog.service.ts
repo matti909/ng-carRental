@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { SubjectManager } from '../utils/subject-manager.util';
-import { Car } from 'src/app/pages/cars/interface';
-import { BehaviorSubject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {SubjectManager} from '../utils/subject-manager.util';
+import {Car} from 'src/app/pages/cars/interface';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,6 @@ export class DialogServices {
   }
 
   setSelectedCar(car: Car | null) {
-    this.selectedCar.next(car)
+    this.selectedCar.next(car);
   }
 }

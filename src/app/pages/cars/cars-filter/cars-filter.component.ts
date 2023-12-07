@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {CarsService} from '../services/cars.service';
 import {FormBuilder} from '@angular/forms';
 
@@ -9,7 +9,7 @@ import {Car} from '../interface';
   templateUrl: './cars-filter.component.html',
   styleUrls: ['./cars-filter.component.scss'],
 })
-export class CarsFilterComponent  {
+export class CarsFilterComponent {
   recipeForm = this.fb.group({
     brand: [''],
   });

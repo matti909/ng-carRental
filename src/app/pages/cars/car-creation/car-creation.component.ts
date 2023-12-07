@@ -9,7 +9,7 @@ import {Location} from '@angular/common';
   templateUrl: './car-creation.component.html',
   styleUrls: ['./car-creation.component.scss'],
 })
-export class CarCreationComponent  {
+export class CarCreationComponent {
   selectedFile: any = null;
 
   constructor(
@@ -28,7 +28,6 @@ export class CarCreationComponent  {
     price: [''],
     picture: [''],
   });
-
 
   saveSuccess(result: any) {
     console.log('Saved successfully');
