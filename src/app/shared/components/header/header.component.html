@@ -1,7 +1,7 @@
 <mat-toolbar>
-  <button mat-icon-button (click)="opened = !opened">
-    <mat-icon>menu</mat-icon>
-  </button>
+  <span class="nav-tool-items">
+    <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
+  </span>
 
   <span class="spacer"></span>
 
@@ -14,7 +14,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav [(opened)]="opened" mode="side">
+  <mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true">
     <mat-list *ngIf="user">
       <mat-list-item>
         <mat-icon matListItemIcon>account_circle</mat-icon>
@@ -25,15 +25,15 @@
     </mat-list>
     <mat-nav-list>
       <div mat-subheader>Admin</div>
-      <a mat-list-item routerLink="/admin/dashboard">
+      <a mat-list-item routerLink="#">
         <mat-icon matListItemIcon>dashboard</mat-icon>
         Dashboard
       </a>
-      <a mat-list-item routerLink="/admin/products">
+      <a mat-list-item routerLink="/cars">
         <mat-icon matListItemIcon>dataset</mat-icon>
         Products
       </a>
-      <a mat-list-item routerLink="/admin/categories">
+      <a mat-list-item routerLink="#">
         <mat-icon matListItemIcon>dns</mat-icon>
         Categories
       </a>

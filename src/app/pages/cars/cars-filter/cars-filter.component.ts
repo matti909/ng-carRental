@@ -14,6 +14,7 @@ export class CarsFilterComponent {
     brand: [''],
   });
 
+
   constructor(
     private service: CarsService,
     private fb: FormBuilder
@@ -23,5 +24,7 @@ export class CarsFilterComponent {
     this.service.updateFilter(this.recipeForm.value as Car);
   }
 
-  //clearFilter() {}
+  clearFilter() {
+    this.service.clearFilter();
+  }
 }

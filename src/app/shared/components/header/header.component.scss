@@ -1,4 +1,5 @@
-/* header.component.css */
+@import 'src/theme.scss'; 
+
 
 .navbar-brand {
   display: flex;
@@ -14,8 +15,6 @@
 }
 
 mat-toolbar {
-  background-color: var(--secondary);
-  color: var(--text-dark);
   padding: 1rem;
   max-height: 55px;
 }
@@ -31,4 +30,8 @@ mat-sidenav-container {
 mat-sidenav {
   width: 250px;
   background-color: #eee;
+}
+
+mat-toolbar {
+  background-color: #1976d2;
 }

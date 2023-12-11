@@ -1,10 +1,15 @@
-import {Component, Input, OnInit, inject, signal} from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Car} from 'src/app/pages/cars/interface';
 import {CarsService} from 'src/app/pages/cars/services/cars.service';
-import {Location} from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Observable, of} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {DialogServices} from '../../services/dialog.service';
 
 @Component({
@@ -13,12 +18,13 @@ import {DialogServices} from '../../services/dialog.service';
   styleUrls: ['./g-price-form.component.scss'],
 })
 export class GPriceFormComponent implements OnInit {
-  private location = inject(Location);
   fb = inject(FormBuilder);
   snacbark = inject(MatSnackBar);
   carService = inject(CarsService);
   carUniqe = inject(DialogServices);
   car!: Observable<Car | null>;
+  subscription!: Subscription;
+  
 
   form = this.fb.nonNullable.group({
     price: [0],
@@ -27,13 +33,10 @@ export class GPriceFormComponent implements OnInit {
 
   ngOnInit() {
     this.car = this.carUniqe.getSelectedCar();
-  }
 
-  getCar(productId: string) {
-    this.carService.getCar(productId).subscribe(data => {
-      this.car = of(data);
-      this.form.patchValue(data);
-    });
+    this.subscription = this.carService.refreshNeed.subscribe(() => {
+      this.car
+    })
   }
 
   private showSnackBar(message: string): void {
@@ -43,37 +46,24 @@ export class GPriceFormComponent implements OnInit {
   }
 
   saveSuccess(result: any) {
-    console.log('Saved successfully');
     this.showSnackBar('Car saved successfully!');
+    this.carUniqe.dialogSubject$.setSubject(false);
   }
 
   onSubmit() {
-    console.log('Formulario válido:', this.form.valid);
-  
-    if (!this.car) {
-      console.error('this.car is undefined', this.car);
-      return;
-    }
-  
     this.car.subscribe(car => {
-      console.log('Valor de car:', car);
-  
       if (this.form.valid && car) {
         const formData = this.form.getRawValue();
         this.carService.updatePriceCar(car._id, formData).subscribe({
           next: result => {
             this.saveSuccess(result);
-            // Refresca la página después de una actualización exitosa
-            window.location.reload();
           },
           error: (error: any) => {
             console.error('Error update price car:', error);
-  
+
             if (error.status === 403) {
               const errorMessage = error.error.detail;
               console.log('Error detail:', errorMessage);
-  
-              // Puedes mostrar el mensaje en tu interfaz de usuario o tomar alguna acción adicional.
               this.showSnackBar('Authentication Error: ' + errorMessage);
             } else {
               this.showSnackBar('Error updating car. Please try again.');
@@ -86,5 +76,4 @@ export class GPriceFormComponent implements OnInit {
       }
     });
   }
-  
 }

@@ -1,12 +1,15 @@
 <!-- <mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-</mat-form-field> -->
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+      </mat-form-field> 
+--> 
+
+
 
 <section *ngIf="cars$ | async as cars" class="cars">
   <app-cars-filter></app-cars-filter>
   <div>
-    <button mat-raised-button color="secondary" (click)="onButtonClick()">
+    <button mat-raised-button (click)="onButtonClick()">
       Add car!
     </button>
   </div>
@@ -55,7 +58,6 @@
 </section>
 
 <!-- <section *ngIf="cars$ | async as cars" class="cars">
-  <app-car [car]="car" *ngFor="let car of cars" (addToCar)="add($event)"></app-car>
-</section>
-
+      <app-car [car]="car" *ngFor="let car of cars" (addToCar)="add($event)"></app-car>
+     </section>
  -->
