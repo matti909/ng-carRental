@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {CarsService} from '../services/cars.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -8,6 +8,7 @@ import {Location} from '@angular/common';
   selector: 'app-car-creation',
   templateUrl: './car-creation.component.html',
   styleUrls: ['./car-creation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CarCreationComponent {
   selectedFile: any = null;
