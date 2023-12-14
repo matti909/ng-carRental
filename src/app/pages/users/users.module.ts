@@ -6,9 +6,10 @@ import {LoginComponent} from './components/login/login.component';
 import {MaterialModule} from 'src/app/material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SignupComponent} from './components/signup/signup.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent],
+  declarations: [LoginComponent, SignupComponent, UsersListComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,

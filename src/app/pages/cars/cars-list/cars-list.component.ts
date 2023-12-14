@@ -5,16 +5,16 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {Router} from '@angular/router';
-import {Observable, Subscription, combineLatest} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {DialogServices} from 'src/app/shared/services/dialog.service';
-import {ShoppingCartService} from 'src/app/shared/services/shopping-cart.service';
-import {Car} from '../interface';
-import {CarsService} from '../services/cars.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { Observable, combineLatest } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { DialogServices } from 'src/app/shared/services/dialog.service';
+import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
+import { Car } from '../interface';
+import { CarsService } from '../services/cars.service';
 
 @Component({
   selector: 'app-cars-list',
@@ -27,7 +27,6 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['brand', 'price', 'picture', 'make', 'actions'];
   dataSource: MatTableDataSource<Car> = new MatTableDataSource<Car>();
   dialogService = inject(DialogServices);
-  subscription!: Subscription;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -55,9 +54,6 @@ export class CarsListComponent implements OnInit, AfterViewInit {
       }),
       startWith([])
     );
-    this.subscription = this.service.refreshNeed.subscribe(() => {
-      this.cars$;
-    });
   }
 
   ngAfterViewInit() {

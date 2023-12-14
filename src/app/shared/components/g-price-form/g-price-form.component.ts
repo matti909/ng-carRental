@@ -1,16 +1,25 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild, inject} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Car} from 'src/app/pages/cars/interface';
 import {CarsService} from 'src/app/pages/cars/services/cars.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Observable, Subscription} from 'rxjs';
 import {DialogServices} from '../../services/dialog.service';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-g-price-form',
   templateUrl: './g-price-form.component.html',
   styleUrls: ['./g-price-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GPriceFormComponent implements OnInit {
   fb = inject(FormBuilder);
@@ -19,7 +28,7 @@ export class GPriceFormComponent implements OnInit {
   carUniqe = inject(DialogServices);
   car!: Observable<Car | null>;
   subscription!: Subscription;
-  cdr = inject(ChangeDetectorRef)
+  cdr = inject(ChangeDetectorRef);
 
   form = this.fb.nonNullable.group({
     price: [0],
