@@ -29,7 +29,6 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   dialogService = inject(DialogServices);
   subscription!: Subscription;
 
-  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -57,8 +56,8 @@ export class CarsListComponent implements OnInit, AfterViewInit {
       startWith([])
     );
     this.subscription = this.service.refreshNeed.subscribe(() => {
-      this.cars$
-    })
+      this.cars$;
+    });
   }
 
   ngAfterViewInit() {

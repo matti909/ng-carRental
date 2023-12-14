@@ -12,13 +12,31 @@
 mat-card-title,
 mat-card-content {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   margin: 10px;
+
+  gap: 15px;
 }
 
 form {
   display: flex;
   flex-direction: column;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+button {
+  margin-left: 10px;
+}
+
+.aderente {
+  display: flex;
+  justify-content: space-between;
 }
 
 .boton {
@@ -27,3 +45,5 @@ form {
   top: 30px;
   margin: 2px;
 }
+
+

@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  ViewChild,
-  inject,
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, inject} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Car} from 'src/app/pages/cars/interface';
 import {CarsService} from 'src/app/pages/cars/services/cars.service';
@@ -16,6 +10,7 @@ import {DialogServices} from '../../services/dialog.service';
   selector: 'app-g-price-form',
   templateUrl: './g-price-form.component.html',
   styleUrls: ['./g-price-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GPriceFormComponent implements OnInit {
   fb = inject(FormBuilder);
@@ -24,7 +19,6 @@ export class GPriceFormComponent implements OnInit {
   carUniqe = inject(DialogServices);
   car!: Observable<Car | null>;
   subscription!: Subscription;
-  
 
   form = this.fb.nonNullable.group({
     price: [0],
@@ -35,8 +29,8 @@ export class GPriceFormComponent implements OnInit {
     this.car = this.carUniqe.getSelectedCar();
 
     this.subscription = this.carService.refreshNeed.subscribe(() => {
-      this.car
-    })
+      this.car;
+    });
   }
 
   private showSnackBar(message: string): void {

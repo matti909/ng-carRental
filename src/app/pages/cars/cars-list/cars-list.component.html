@@ -1,4 +1,4 @@
-<!-- <mat-form-field>
+<!--  <mat-form-field>
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
       </mat-form-field> 
@@ -9,7 +9,7 @@
 <section *ngIf="cars$ | async as cars" class="cars">
   <app-cars-filter></app-cars-filter>
   <div>
-    <button mat-raised-button (click)="onButtonClick()">
+    <button mat-stroked-button color="secondary" (click)="onButtonClick()">
       Add car!
     </button>
   </div>

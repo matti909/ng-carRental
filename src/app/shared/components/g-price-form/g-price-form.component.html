@@ -1,5 +1,18 @@
+<mat-card>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <label for="price">Price</label>
-  <input mat-input formControlName="price" />
+
+  <div *ngIf="car | async as carData; else loading">
+    <p>Car ID: {{ carData?._id }}</p>
+    <p>Car Name: {{ carData?.brand }}</p>
+  </div>
+  
+  <ng-template #loading>
+    <p>Loading car information...</p>
+  </ng-template>
+
+  <label for="price">Update Price</label>
+  <input mat-input formControlName="price" type="number"/>
   <button type="submit" color="primary" mat-raised-button>Save</button>
 </form>
+  
+</mat-card>
