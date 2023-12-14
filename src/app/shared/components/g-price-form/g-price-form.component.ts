@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, inject} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild, inject} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Car} from 'src/app/pages/cars/interface';
 import {CarsService} from 'src/app/pages/cars/services/cars.service';
@@ -19,6 +19,7 @@ export class GPriceFormComponent implements OnInit {
   carUniqe = inject(DialogServices);
   car!: Observable<Car | null>;
   subscription!: Subscription;
+  cdr = inject(ChangeDetectorRef)
 
   form = this.fb.nonNullable.group({
     price: [0],
@@ -28,8 +29,13 @@ export class GPriceFormComponent implements OnInit {
   ngOnInit() {
     this.car = this.carUniqe.getSelectedCar();
 
-    this.subscription = this.carService.refreshNeed.subscribe(() => {
-      this.car;
+    this.car.subscribe(car => {
+      if (car) {
+        this.form.patchValue({
+          price: car.price || 0,
+        });
+        this.cdr.markForCheck();
+      }
     });
   }
 

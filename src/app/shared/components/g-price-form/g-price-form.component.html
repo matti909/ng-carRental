@@ -1,17 +1,25 @@
 <mat-card>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-  <div *ngIf="car | async as carData; else loading">
-    <p>Car ID: {{ carData?._id }}</p>
-    <p>Car Name: {{ carData?.brand }}</p>
-  </div>
+ <mat-card>
+  <mat-card-content *ngIf="car | async as carData; else loading">
+    <mat-card-subtitle> Owner ID: {{ carData?.owner }}</mat-card-subtitle>
+    <mat-card-subtitle> Name: {{ carData?.brand }} {{carData.make}}</mat-card-subtitle>
+  </mat-card-content>
+ </mat-card>
   
   <ng-template #loading>
-    <p>Loading car information...</p>
+    <mat-card-subtitle>Loading car information...</mat-card-subtitle>
   </ng-template>
 
-  <label for="price">Update Price</label>
-  <input mat-input formControlName="price" type="number"/>
+  <mat-card-title for="price">Update Price</mat-card-title>
+  <mat-form-field appearance="fill">
+    <mat-label>Price $</mat-label>
+    <input
+      type="number"
+      matInput
+      formControlName="price" />
+  </mat-form-field>
   <button type="submit" color="primary" mat-raised-button>Save</button>
 </form>
   
