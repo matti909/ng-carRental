@@ -8,7 +8,7 @@ import {environment} from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UsersService {
-  private apiUrl = environment.apiUrl + '/users';
+  private apiUrl = 'http://3.144.35.175/users';
   users$ = this.http.get<User[]>(this.apiUrl);
 
   constructor(private http: HttpClient) {}

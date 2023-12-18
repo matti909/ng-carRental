@@ -8,7 +8,7 @@ import {environment} from 'src/environments/environment';
   providedIn: 'root',
 })
 export class CarsService {
-  private apiUrl = environment.apiUrl + '/cars';
+  private apiUrl = 'http://3.144.35.175/cars';
   cars$ = this.http.get<Car[]>(this.apiUrl);
   private filterCarSubject = new BehaviorSubject<Car>({brand: ''});
   filterCarsAction$ = this.filterCarSubject.asObservable();
