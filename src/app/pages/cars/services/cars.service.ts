@@ -2,12 +2,13 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject, tap, throwError} from 'rxjs';
 import {Car} from '../interface';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarsService {
-  private apiUrl = 'http://localhost:8000/cars';
+  private apiUrl = environment.apiUrl + '/cars';
   cars$ = this.http.get<Car[]>(this.apiUrl);
   private filterCarSubject = new BehaviorSubject<Car>({brand: ''});
   filterCarsAction$ = this.filterCarSubject.asObservable();
@@ -31,18 +32,15 @@ export class CarsService {
     const token = localStorage.getItem('accessToken');
     if (token) {
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      return this.http
-        .post<Car>(this.apiUrl, formData, {headers})
-        .pipe(
-          tap(() => {
-            this.refreshNeed.next()
-          })
-        )
+      return this.http.post<Car>(this.apiUrl, formData, {headers}).pipe(
+        tap(() => {
+          this.refreshNeed.next();
+        })
+      );
     } else {
       throw new Error('No se encontró el token de autenticación.');
     }
   }
-
 
   getCars(): Observable<Car[]> {
     return this.http.get<Car[]>(this.apiUrl);
@@ -61,13 +59,11 @@ export class CarsService {
     if (id !== undefined && token) {
       const url = `${this.apiUrl}/${id}`;
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      return this.http
-        .patch<Car>(url, changes, {headers})
-        .pipe(
-          tap(()=> {
-            this.refreshNeed.next()
-          })
-        )
+      return this.http.patch<Car>(url, changes, {headers}).pipe(
+        tap(() => {
+          this.refreshNeed.next();
+        })
+      );
     } else {
       return throwError('El ID del coche no está definido.');
     }

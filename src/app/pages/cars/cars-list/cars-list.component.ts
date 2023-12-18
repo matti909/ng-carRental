@@ -51,7 +51,6 @@ export class CarsListComponent implements OnInit, AfterViewInit {
                 car.brand?.toLowerCase().includes(selectedBrand.toLowerCase())
             )
         );
-
         this.dataSource.data = filteredCars;
         return filteredCars;
       }),
