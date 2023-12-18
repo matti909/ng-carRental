@@ -7,14 +7,18 @@
 
   <mat-nav-list class="nav">
     <span class="navbar-brand fs-2 fw-bold">
-      <img src="assets/car.svg" width="250" height="200" alt="">
+      <img src="assets/car.svg" width="250" height="200" alt="" />
       <app-cart />
     </span>
   </mat-nav-list>
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true">
+  <mat-sidenav
+    #sidenav
+    [mode]="isBiggerScreen() ? 'over' : 'side'"
+    [(opened)]="opened"
+    [fixedInViewport]="true">
     <mat-list *ngIf="user">
       <mat-list-item>
         <mat-icon matListItemIcon>account_circle</mat-icon>
@@ -25,18 +29,26 @@
     </mat-list>
     <mat-nav-list>
       <div mat-subheader>Cars</div>
-     
+
       <a mat-list-item routerLink="/cars">
         <mat-icon matListItemIcon>dataset</mat-icon>
         Cars
       </a>
-    
+
       <mat-divider></mat-divider>
       <div div mat-subheader>Users</div>
       <a mat-list-item routerLink="/users/list">
         <mat-icon matListItemIcon>group</mat-icon>
         Users
       </a>
+
+      <button
+        *ngIf="authService.isLoggedIn"
+        mat-icon-button
+        matTooltip="Log Out"
+        (click)="logOut()">
+        <mat-icon matListItemIcon aria-label="Log out">logout</mat-icon>
+      </button>
     </mat-nav-list>
   </mat-sidenav>
 

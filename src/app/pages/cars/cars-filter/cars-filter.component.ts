@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
-import {CarsService} from '../services/cars.service';
 import {FormBuilder} from '@angular/forms';
-
+import {CarsService} from '../services/cars.service';
 import {Car} from '../interface';
 
 @Component({
@@ -14,6 +13,14 @@ export class CarsFilterComponent {
     brand: [''],
   });
 
+  brandList: string[] = [
+    'Ford',
+    'Fiat',
+    'VW',
+    'Peugeot',
+    'Renault',
+    'Chevrolet',
+  ];
 
   constructor(
     private service: CarsService,

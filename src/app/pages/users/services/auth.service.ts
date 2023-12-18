@@ -16,9 +16,7 @@ export class AuthService {
 
   private apiUrl = environment.apiUrl + '/users';
 
-  constructor(
-    private http: HttpClient
-  ) {
+  constructor(private http: HttpClient) {
     const localToken = this.getLocalToken();
     let isLoggedIn = false;
     if (localToken) {
@@ -125,5 +123,11 @@ export class AuthService {
           },
         })
       );
+  }
+
+  logOut(): void {
+    localStorage.removeItem(this.ACCESS_TOKEN);
+    localStorage.removeItem(this.AUTH_USER);
+    this.resetAuthState();
   }
 }

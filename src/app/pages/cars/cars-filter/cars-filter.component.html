@@ -2,12 +2,13 @@
   <form [formGroup]="recipeForm">
     <mat-form-field>
       <mat-label>Brands</mat-label>
-      <mat-select id="brand" formControlName="brand" name="brand">
-        <mat-option value="audi">Audi</mat-option>
-        <mat-option value="fiat">Fiat</mat-option>
-        <mat-option value="toyota">Toyota</mat-option>
+      <mat-select id="brand" formControlName="brand" name="brand" multiple>
+        <mat-option *ngFor="let topping of brandList" [value]="topping">{{
+          topping
+        }}</mat-option>
       </mat-select>
     </mat-form-field>
+
     <div class="rp-filter-button">
       <button mat-raised-button color="accent" (click)="filterResults()">
         See results

@@ -1,8 +1,14 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {MatSidenav} from '@angular/material/sidenav';
 import {Router} from '@angular/router';
-import {take} from 'rxjs';
-import {User} from 'src/app/pages/users/interfaces';
+import {Subject, take, takeUntil} from 'rxjs';
+import {AuthState, User} from 'src/app/pages/users/interfaces';
 import {AuthService} from 'src/app/pages/users/services/auth.service';
 
 @Component({
@@ -14,12 +20,16 @@ export class HeaderComponent implements OnInit {
   user: User | null = null;
   title = 'Dashboard';
   opened = false;
+  public isLoggedIn: boolean = false;
+  public authUser: User | null = null;
+  private destroyNotifier$: Subject<boolean> = new Subject<boolean>();
 
   @ViewChild('sidenav', {static: true}) sidenav!: MatSidenav;
 
   constructor(
     public router: Router,
-    private authService: AuthService
+    public authService: AuthService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -32,13 +42,24 @@ export class HeaderComponent implements OnInit {
       this.opened = true;
     }
 
-    this.authService.authState.pipe(take(1)).subscribe(authState => {
-      this.user = authState.currentUser;
-    });
+    this.authService.authState
+      .pipe(takeUntil(this.destroyNotifier$))
+      .subscribe({
+        next: (authState: AuthState) => {
+          this.isLoggedIn = authState.isLoggedIn;
+          this.authUser = authState.currentUser;
+          this.changeDetectorRef.markForCheck();
+        },
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroyNotifier$.next(true);
+    this.destroyNotifier$.complete();
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event:any) {
+  onResize(event: any) {
     if (event.target.innerWidth < 768) {
       this.sidenav.fixedTopGap = 55;
       this.opened = false;
@@ -61,5 +82,10 @@ export class HeaderComponent implements OnInit {
 
   public navigateTo(page: string): void {
     this.router.navigate([page]);
+  }
+
+  logOut(): void {
+    this.authService.logOut();
+    this.router.navigateByUrl('/users/login');
   }
 }

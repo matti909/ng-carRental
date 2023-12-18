@@ -5,16 +5,16 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { Observable, combineLatest } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { DialogServices } from 'src/app/shared/services/dialog.service';
-import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
-import { Car } from '../interface';
-import { CarsService } from '../services/cars.service';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {Router} from '@angular/router';
+import {Observable, combineLatest} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {DialogServices} from 'src/app/shared/services/dialog.service';
+import {ShoppingCartService} from 'src/app/shared/services/shopping-cart.service';
+import {Car} from '../interface';
+import {CarsService} from '../services/cars.service';
 
 @Component({
   selector: 'app-cars-list',
@@ -45,10 +45,13 @@ export class CarsListComponent implements OnInit, AfterViewInit {
       map(([cars, filter]: [Car[], Car]) => {
         const filteredCars = cars.filter(
           car =>
-            car.brand
-              ?.toLowerCase()
-              .indexOf(filter?.brand?.toLowerCase() ?? '') != -1
+            !Array.isArray(filter?.brand) ||
+            filter.brand.some(
+              selectedBrand =>
+                car.brand?.toLowerCase().includes(selectedBrand.toLowerCase())
+            )
         );
+
         this.dataSource.data = filteredCars;
         return filteredCars;
       }),
