@@ -14,7 +14,7 @@ export class AuthService {
   isLoggedInAsync!: Observable<boolean>;
   private readonly authSubject!: BehaviorSubject<AuthState>;
 
-  private apiUrl = environment.apiUrl + '/users';
+  private apiUrl = 'http://3.144.35.175/users';
 
   constructor(private http: HttpClient) {
     const localToken = this.getLocalToken();
