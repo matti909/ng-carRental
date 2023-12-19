@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import {MatSidenav} from '@angular/material/sidenav';
 import {Router} from '@angular/router';
-import {Subject, take, takeUntil} from 'rxjs';
+import {Subject, takeUntil} from 'rxjs';
 import {AuthState, User} from 'src/app/pages/users/interfaces';
 import {AuthService} from 'src/app/pages/users/services/auth.service';
 
@@ -17,7 +17,6 @@ import {AuthService} from 'src/app/pages/users/services/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  user: User | null = null;
   title = 'Dashboard';
   opened = false;
   public isLoggedIn: boolean = false;

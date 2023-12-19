@@ -7,8 +7,7 @@
 
   <mat-nav-list class="nav">
     <span class="navbar-brand fs-2 fw-bold">
-      <img src="assets/car.svg" width="250" height="200" alt="" />
-      <app-cart />
+      <img src="assets/car.svg" width="250" height="250" alt="" />
     </span>
   </mat-nav-list>
 </mat-toolbar>
@@ -19,11 +18,11 @@
     [mode]="isBiggerScreen() ? 'over' : 'side'"
     [(opened)]="opened"
     [fixedInViewport]="true">
-    <mat-list *ngIf="user">
+    <mat-list *ngIf="authUser">
       <mat-list-item>
         <mat-icon matListItemIcon>account_circle</mat-icon>
-        <h4 matListItemTitle>{{ user.username }}</h4>
-        <p matListItemLine class="demo-2">{{ user.email }}</p>
+        <h4 matListItemTitle>{{ authService.authUser?.username }}</h4>
+        <p matListItemLine class="demo-2">{{ authService.authUser?.email }}</p>
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
