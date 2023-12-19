@@ -2,13 +2,12 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject, tap, throwError} from 'rxjs';
 import {Car} from '../interface';
-import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarsService {
-  private apiUrl = 'http://3.144.35.175/cars';
+  private apiUrl = 'http://3.137.176.43/cars';
   cars$ = this.http.get<Car[]>(this.apiUrl);
   private filterCarSubject = new BehaviorSubject<Car>({brand: ''});
   filterCarsAction$ = this.filterCarSubject.asObservable();
@@ -70,7 +69,7 @@ export class CarsService {
   }
 
   deleteCar(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl} + ${id}`);
   }
 }
 /* updatePriceCar(id: number, data: { price: number | null }): Observable<void> {

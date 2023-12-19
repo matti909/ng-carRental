@@ -27,28 +27,29 @@
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
-    <mat-nav-list>
-      <div mat-subheader>Cars</div>
 
+    <mat-nav-list>
       <a mat-list-item routerLink="/cars">
         <mat-icon matListItemIcon>dataset</mat-icon>
         Cars
       </a>
 
       <mat-divider></mat-divider>
-      <div div mat-subheader>Users</div>
       <a mat-list-item routerLink="/users/list">
         <mat-icon matListItemIcon>group</mat-icon>
         Users
       </a>
 
-      <button
-        *ngIf="authService.isLoggedIn"
-        mat-icon-button
-        matTooltip="Log Out"
-        (click)="logOut()">
-        <mat-icon matListItemIcon aria-label="Log out">logout</mat-icon>
-      </button>
+      <label>
+        <button
+          *ngIf="authService.isLoggedIn"
+          mat-icon-button
+          matTooltip="Log Out"
+          (click)="logOut()">
+          <mat-icon matListItemIcon aria-label="Log out">logout</mat-icon>
+        </button>
+        LOGOUT
+      </label>
     </mat-nav-list>
   </mat-sidenav>
 

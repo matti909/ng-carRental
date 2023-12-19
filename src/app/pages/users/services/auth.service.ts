@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, catchError, map, of, tap} from 'rxjs';
 import {AuthState, LoginResponse, SignupResponse, User} from '../interfaces';
 import {HttpClient} from '@angular/common/http';
-import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +13,7 @@ export class AuthService {
   isLoggedInAsync!: Observable<boolean>;
   private readonly authSubject!: BehaviorSubject<AuthState>;
 
-  private apiUrl = 'http://3.144.35.175/users';
+  private apiUrl = 'http://3.137.176.43/users';
 
   constructor(private http: HttpClient) {
     const localToken = this.getLocalToken();
