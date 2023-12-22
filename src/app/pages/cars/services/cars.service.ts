@@ -7,7 +7,7 @@ import {Car} from '../interface';
   providedIn: 'root',
 })
 export class CarsService {
-  private apiUrl = 'http://3.137.176.43/cars';
+  private apiUrl = 'https://app2.fastapp.website/api/cars';
   cars$ = this.http.get<Car[]>(this.apiUrl);
   private filterCarSubject = new BehaviorSubject<Car>({brand: ''});
   filterCarsAction$ = this.filterCarSubject.asObservable();

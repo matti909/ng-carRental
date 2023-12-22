@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root',
 })
 export class UsersService {
-  private apiUrl = 'http://3.137.176.43/users';
+  private apiUrl = 'https://app2.fastapp.website/api/users';
   users$ = this.http.get<User[]>(this.apiUrl);
 
   constructor(private http: HttpClient) {}

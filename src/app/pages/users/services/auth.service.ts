@@ -13,7 +13,7 @@ export class AuthService {
   isLoggedInAsync!: Observable<boolean>;
   private readonly authSubject!: BehaviorSubject<AuthState>;
 
-  private apiUrl = 'http://3.137.176.43/users';
+  private apiUrl = 'https://app2.fastapp.website/api/users';
 
   constructor(private http: HttpClient) {
     const localToken = this.getLocalToken();
