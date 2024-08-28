@@ -2,12 +2,14 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject, tap, throwError} from 'rxjs';
 import {Car} from '../interface';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarsService {
-  private apiUrl = 'https://app2.fastapp.website/api/cars';
+  private baseUrl = environment.apiUrl;
+  private apiUrl = `${this.baseUrl}cars`;
   cars$ = this.http.get<Car[]>(this.apiUrl);
   private filterCarSubject = new BehaviorSubject<Car>({brand: ''});
   filterCarsAction$ = this.filterCarSubject.asObservable();

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, catchError, map, of, tap} from 'rxjs';
 import {AuthState, LoginResponse, SignupResponse, User} from '../interfaces';
 import {HttpClient} from '@angular/common/http';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,8 @@ export class AuthService {
   isLoggedInAsync!: Observable<boolean>;
   private readonly authSubject!: BehaviorSubject<AuthState>;
 
-  private apiUrl = 'https://app2.fastapp.website/api/users';
+  private baseUrl = environment.apiUrl;
+  private apiUrl = `${this.baseUrl}users`;
 
   constructor(private http: HttpClient) {
     const localToken = this.getLocalToken();
