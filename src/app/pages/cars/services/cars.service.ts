@@ -8,7 +8,7 @@ import {Car} from '../interface';
 })
 export class CarsService {
   private baseUrl = 'https://fastapi-tapeqg7idq-uc.a.run.app/';
-  private apiUrl = `${this.baseUrl}cars`;
+  private apiUrl = `${this.baseUrl}cars/`;
   cars$ = this.http.get<Car[]>(this.apiUrl);
   private filterCarSubject = new BehaviorSubject<Car>({brand: ''});
   filterCarsAction$ = this.filterCarSubject.asObservable();
