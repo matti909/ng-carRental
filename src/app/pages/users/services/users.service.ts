@@ -1,14 +1,13 @@
-import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {User} from '../interfaces';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {environment} from 'src/environments/environment';
+import {User} from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  private baseUrl = environment.apiUrl;
+  private baseUrl = 'https://fastapi-tapeqg7idq-uc.a.run.app/';
   private apiUrl = `${this.baseUrl}users`;
 
   users$ = this.http.get<User[]>(this.apiUrl);

@@ -1,8 +1,7 @@
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, catchError, map, of, tap} from 'rxjs';
 import {AuthState, LoginResponse, SignupResponse, User} from '../interfaces';
-import {HttpClient} from '@angular/common/http';
-import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +13,7 @@ export class AuthService {
   isLoggedInAsync!: Observable<boolean>;
   private readonly authSubject!: BehaviorSubject<AuthState>;
 
-  private baseUrl = environment.apiUrl;
+  private baseUrl = 'https://fastapi-tapeqg7idq-uc.a.run.app/';
   private apiUrl = `${this.baseUrl}users`;
 
   constructor(private http: HttpClient) {
